@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
-
+ext {
+    SUPPORT_LIBRARY_VERSION = '28.0.0'
+}
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -18,6 +20,26 @@ android {
     }
 }
 
+//使用greendao插件
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+    }
+}
+
+apply plugin: 'org.greenrobot.greendao'
+
+greendao {
+    schemaVersion 1//数据库版本号
+    daoPackage 'cn.baikunlong.gamehodgepodge.dao'//设置DaoMaster、DaoSession、Dao包名
+    targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
+    //targetGenDirTest：设置生成单元测试目录
+    //generateTests：设置自动生成单元测试用例
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -25,4 +47,37 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //design
+    implementation "com.android.support:design:28.0.0"
+
+    //圆形图片控件 CircleImageView
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    //Glide(图片加载库)
+    implementation('com.github.bumptech.glide:glide:4.9.0') {
+        exclude group: "com.android.support"
+    }
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+    //OkHttp（网络请求框架）
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    debugImplementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    //Gson(谷歌官方 Json 库)
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //GreenDao3.2 数据库框架
+    implementation 'org.greenrobot:greendao:3.2.2'
+
+    //权限管理插件
+//    implementation "org.permissionsdispatcher:permissionsdispatcher:4.3.1"
+//    annotationProcessor "org.permissionsdispatcher:permissionsdispatcher-processor:4.3.1"
+
+    //PhotoView(高版本用不了)
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    //搜素布局
+    implementation 'com.carson_ho:SearchLayout:1.0.1'
+    //jsoup
+    implementation 'org.jsoup:jsoup:1.12.1'
+    //RecyclerView框架
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
 }
